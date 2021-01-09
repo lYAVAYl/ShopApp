@@ -22,21 +22,16 @@ namespace ShopApp.UI.Pages
         [BindProperty]
         public ProductVM Product { get; set; }
 
-        public class ProductVM
-        {
-            public string Name { get; set; }
-            public string Description { get; set; }
-            public decimal Value { get; set; } 
-        }
+        public IEnumerable<ProductVM> Products { get; set; }
 
         public void OnGet()
         {
-
+            Products = new GetProducts(_ctx).Do();
         }
 
         public async Task<IActionResult> OnPost()
         {
-            await new CreateProduct(_ctx).Do(Product.Name, Product.Description, Product.Value);
+            await new CreateProduct(_ctx).Do(Product);
 
             return RedirectToPage("Index");
         }

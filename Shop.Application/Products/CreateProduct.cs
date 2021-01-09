@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Shop.Database;
@@ -16,10 +17,17 @@ namespace Shop.Application.Products
             _context = context;
         }
 
-        public async Task Do(string name, string description, decimal value)
+        public async Task Do(ProductVM productVM)
         {
-            await _context.Products.AddAsync(new Product{Name = name, Description = description, Value = value});
+            await _context.Products.AddAsync(
+                new Product
+                {
+                    Name = productVM.Name, 
+                    Description = productVM.Description, 
+                    Value = Convert.ToDecimal(productVM.Value)
+                });
             await _context.SaveChangesAsync();
         }
+        
     }
 }
