@@ -16,7 +16,7 @@ namespace Shop.Application.Products
         }
 
         public IEnumerable<ProductVM> Do() => 
-            _ctx.Products.ToList().Select(x => new ProductVM(x.Name, x.Description, "$ " + x.Value.ToString("N2")));
+            _ctx.Products.ToList().Select(x => new ProductVM(x.Name, x.Description, x.Value.ToString("N2")));
         
     }
 }
